@@ -2,9 +2,9 @@ post http://localhost:3001/users/
 Content-Type:application/json 
 
 {
-  "username": "aaaaaaa",
+  "username": "tester",
   "name": "Ganesh",
-  "password": "Ganesh123",
+  "password": "test123",
   "gender": "male",
   "location": "Detroit"
 } 
@@ -12,13 +12,13 @@ Content-Type:application/json
 
 ###
 
-post http://localhost:3000/login
+post http://localhost:3001/login
 Content-Type:application/json  
 
 {
-  "username": "adam_richard",
-  "password": "richard_567"
-}
+  "username": "tester",
+  "password": "test123"
+} 
 
 ###
 put http://localhost:3000/change-password

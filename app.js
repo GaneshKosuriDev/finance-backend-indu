@@ -64,7 +64,8 @@ app.post("/users/", async (request, response) => {
 
 app.post("/login", async (request, response) => {
   const { username, password } = request.body;
-  const selectUserQuery = `SELECT * FROM user WHERE username = '${username}';`;
+  console.log(username);
+  const selectUserQuery = `SELECT * FROM user WHERE username like '${username}';`;
   const databaseUser = await database.get(selectUserQuery);
 
   if (databaseUser === undefined) {
