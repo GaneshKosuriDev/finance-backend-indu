@@ -1,10 +1,10 @@
-post http://localhost:3000/register 
+post http://localhost:3001/users/
 Content-Type:application/json 
 
 {
-  "username": "adam_richard",
-  "name": "Adam Richard",
-  "password": "richard_567",
+  "username": "aaaaaaa",
+  "name": "Ganesh",
+  "password": "Ganesh123",
   "gender": "male",
   "location": "Detroit"
 } 

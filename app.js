@@ -34,36 +34,32 @@ const validatePassword = (password) => {
   return password.length > 4;
 };
 
-app.post("/register", async (request, response) => {
+app.post("/users/", async (request, response) => {
   const { username, name, password, gender, location } = request.body;
   const hashedPassword = await bcrypt.hash(password, 10);
-  const selectUserQuery = `SELECT * FROM user WHERE username = '${username}';`;
-  const databaseUser = await database.get(selectUserQuery);
-
-  if (databaseUser === undefined) {
+  const selectUserQuery = `SELECT * FROM user WHERE username = '${username}'`;
+  const dbUser = await database.get(selectUserQuery);
+  if (dbUser === undefined) {
     const createUserQuery = `
-     INSERT INTO
-      user (username, name, password, gender, location)
-     VALUES
-      (
-       '${username}',
-       '${name}',
-       '${hashedPassword}',
-       '${gender}',
-       '${location}'  
-      );`;
-    if (validatePassword(password)) {
-      await database.run(createUserQuery);
-      response.send("User created successfully");
-    } else {
-      response.status(400);
-      response.send("Password is too short");
-    }
+      INSERT INTO 
+        user (username, name, password, gender, location) 
+      VALUES 
+        (
+          '${username}', 
+          '${name}',
+          '${hashedPassword}', 
+          '${gender}',
+          '${location}'
+        )`;
+    const dbResponse = await database.run(createUserQuery);
+    const newUserId = dbResponse.lastID;
+    response.send(`Created new user successfully`);
   } else {
-    response.status(400);
+    response.status = 400;
     response.send("User already exists");
   }
 });
+
 app.post("/login", async (request, response) => {
   const { username, password } = request.body;
   const selectUserQuery = `SELECT * FROM user WHERE username = '${username}';`;
